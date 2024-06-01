@@ -1,5 +1,5 @@
+using MgWindManager.Models;
 using MgWindManager.Models.Dto;
-using windmillsManagement.Models.Windmill;
 using X.PagedList;
 
 namespace MgWindManager.Services;

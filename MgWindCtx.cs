@@ -1,10 +1,10 @@
+using MgWindManager.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using windmillsManagement.Models.Windmill;
-using windmillsManagement.Models.WindPark;
 
 namespace MgWindManager;
 
-public class MgWindCtx : DbContext
+public class MgWindCtx : IdentityDbContext<UserModel>
 {
     public MgWindCtx(DbContextOptions<MgWindCtx> options) : base(options)
     {

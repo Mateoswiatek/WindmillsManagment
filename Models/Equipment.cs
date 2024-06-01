@@ -1,4 +1,4 @@
-namespace windmillsManagement.Models.Equipment;
+namespace MgWindManager.Models;
 
 // Proste wyposarzenie, jak na razie bez rozbijania na Gaśnice, Apteczki, Lonże, Uprzęże.
 // Ewentualnie te rzeczy można dać jako dziedziczące po tym, w tedy polimorfizm będzie.

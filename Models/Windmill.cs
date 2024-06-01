@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace windmillsManagement.Models.Windmill;
+namespace MgWindManager.Models;
 
 public class Windmill
 {

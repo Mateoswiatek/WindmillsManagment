@@ -1,5 +1,7 @@
 using MgWindManager;
+using MgWindManager.Models;
 using MgWindManager.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,20 @@ builder.Services.AddDbContext<MgWindCtx>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("windmillsManagement"));
 });
+
+//Autentyfikacja, Logowanie.
+builder.Services.AddIdentity<UserModel, IdentityRole>(options =>
+{
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(2); // Czas blokady konta
+    options.Lockout.MaxFailedAccessAttempts = 5; // Maksymalna liczba nieudanych prób logowania przed zablokowaniem konta
+    
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 2;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+}).AddEntityFrameworkStores<MgWindCtx>();
+//todo zmienić tak, aby baza danych userów nie była w tej samej bazce co cała aplikacja.
 
 builder.Services.AddControllersWithViews();
 
@@ -37,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

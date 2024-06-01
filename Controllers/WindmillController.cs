@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using MgWindManager.Models;
 using Microsoft.AspNetCore.Mvc;
-using windmillsManagement.Models;
-using windmillsManagement.Models.Windmill;
 
 namespace windmillsManagement.Controllers;
 

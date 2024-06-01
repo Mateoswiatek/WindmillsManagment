@@ -1,6 +1,5 @@
+using MgWindManager.Models;
 using MgWindManager.Models.Dto;
-using windmillsManagement.Models;
-using windmillsManagement.Models.Windmill;
 using X.PagedList;
 
 public interface IWindmillServices

@@ -1,4 +1,4 @@
-namespace windmillsManagement.Models.WindPark;
+namespace MgWindManager.Models;
 
 public class WindPark
 {
@@ -7,5 +7,5 @@ public class WindPark
     // czy to na pewno powinno być? mozna zwracać pozycję pierwszego z seta?
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public ISet<Windmill.Windmill> Windmills { get; set; }
+    public ISet<Windmill> Windmills { get; set; }
 }

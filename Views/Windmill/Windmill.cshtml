@@ -1,4 +1,4 @@
-@model windmillsManagement.Models.Windmill.Windmill
+@model MgWindManager.Models.Windmill
 
 @{
     ViewData["Title"] = "Wiatrak";
@@ -29,7 +29,6 @@
             </dl>
 
             <a href="@Url.Action("Edit", "Windmill", new { guid = Model.Guid })">Edytuj</a>
-
             <form id="deleteForm" asp-action="Delete" asp-controller="Windmill" method="post">
                 <input type="hidden" name="guid" value="@Model.Guid" />
                 <button type="button" class="btn btn-danger" onclick="confirmDelete()">Usuń</button>
@@ -37,12 +36,10 @@
         </div>
     </div>
 </div>
-
 <script>
     function confirmDelete() {
         if (confirm("Czy na pewno chcesz usunąć ten wiatrak?")) {
             document.getElementById("deleteForm").submit();
         }
     }
-
 </script>
