@@ -23,22 +23,7 @@ public class WindmillController(
     public IActionResult Windmill(Guid guid)
     {
         logger.LogInformation("guid: {}", guid);
-
-        var windmill = new Windmill
-        {
-            Guid = default,
-            Name = "nazwa1",
-            Description = "Opis przykładowego",
-            Latitude = 0,
-            Longitude = 0,
-            Height = 100.25,
-            DateOfLastVisit = default,
-            // WindPark = null,
-            // WindmillEquipments = null,
-            // Visits = null
-        };
-        
-        return View(windmill);
+        return View(windmillServices.GetByGuid(guid));
     }
     
     [HttpGet]
@@ -61,10 +46,6 @@ public class WindmillController(
         // }
 
         TempData["Guid"] = windmillServices.Save(windmill);
-        
-        //To zawsze będzie metodą get, więc zawsze nam wróci
-        // do pustego formularza i straci kontekst przekazanych
-        // danych
         return RedirectToAction("AddWindmill");
     }
     
@@ -73,9 +54,8 @@ public class WindmillController(
     [HttpGet]
     public IActionResult WindmillList(string search, int page = 1, int size = 5)
     {
-        // TempData["Search"] = search;
         ViewData["search"] = search;
-        var pagedWindmills = windmillServices.getPagedWindmillShortDtos(search, page, size);
+        var pagedWindmills = windmillServices.GetPagedWindmillShortDtos(search, page, size);
         return View(pagedWindmills);
     }
 

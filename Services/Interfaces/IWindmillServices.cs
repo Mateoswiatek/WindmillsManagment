@@ -7,5 +7,6 @@ public interface IWindmillServices
 {
     Guid Save(Windmill windmill);
     IPagedList<Windmill> GetPagedWindmills(int page, int pageSize);
-    IPagedList<WindmillShortDto> getPagedWindmillShortDtos(string name, int page, int pageSize);
+    IPagedList<WindmillShortDto> GetPagedWindmillShortDtos(string name, int page, int pageSize);
+    Windmill GetByGuid(Guid guid);
 }

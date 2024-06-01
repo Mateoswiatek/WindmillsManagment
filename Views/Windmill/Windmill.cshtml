@@ -4,10 +4,26 @@
     ViewData["Title"] = "Wiatrak";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Mamy nasz widok Wiatraka!</h1>
-    <p>Name: @Model.Name</p>
-    <p>Lat: @Model.Latitude</p>
-    <p>Lon: @Model.Longitude</p>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h1 class="display-4 text-center">Wiatrak: @Model.Name</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Nazwa:</dt>
+                <dd class="col-sm-8">@Model.Name</dd>
+
+                <dt class="col-sm-4">Opis:</dt>
+                <dd class="col-sm-8">@Model.Description</dd>
+
+                <dt class="col-sm-4">Szerokość i długość geograficzna:</dt>
+                <dd class="col-sm-8">@Model.Latitude, @Model.Longitude</dd>
+
+                <dt class="col-sm-4">Wysokość:</dt>
+                <dd class="col-sm-8">@Model.Height</dd>
+
+                <dt class="col-sm-4">Data ostatniej wizyty:</dt>
+                <dd class="col-sm-8">@Model.DateOfLastVisit.ToShortDateString()</dd>
+            </dl>
+        </div>
+    </div>
 </div>

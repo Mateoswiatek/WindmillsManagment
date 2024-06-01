@@ -21,7 +21,7 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
     }
 
     //Projekcja, aby pobierać tylko to co potrzebujemy, aby nie zwracać całych wiatrakow.
-    public IPagedList<WindmillShortDto> getPagedWindmillShortDtos(string search, int page, int pageSize)
+    public IPagedList<WindmillShortDto> GetPagedWindmillShortDtos(string search, int page, int pageSize)
     {
         // ewentualnie jakiegoś buildera? może ładniej by to wyglądało
         
@@ -44,5 +44,17 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
 
         return result;
     }
-    
+
+    public Windmill GetByGuid(Guid guid)
+    { 
+        var windmill = ctx.Windmills.Find(guid);
+        
+        //TODO własna obsługa błędów, aż do frontu. 
+        if (windmill == null)
+        {
+            throw new Exception($"Windmill with GUID {guid} not found.");
+        }
+
+        return windmill;
+    }
 }
