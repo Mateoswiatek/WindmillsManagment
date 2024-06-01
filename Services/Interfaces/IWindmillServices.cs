@@ -9,4 +9,6 @@ public interface IWindmillServices
     IPagedList<Windmill> GetPagedWindmills(int page, int pageSize);
     IPagedList<WindmillShortDto> GetPagedWindmillShortDtos(string name, int page, int pageSize);
     Windmill GetByGuid(Guid guid);
+
+    void Delete(Guid guid);
 }

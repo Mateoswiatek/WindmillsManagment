@@ -16,9 +16,6 @@ public class WindmillController(
     // np będziemy mieli osadzoną mapę, i dostaniemy zakresy szerokości i długości.
     // user może też określić max ilość wiatraków, tak aby nie ładowało się za kazdym razem.
     
-    // po prostu zrobimy wyszukiwanie z filtrem. i w tedy w windparkach, będziemy zwracać efekt takiego
-    // wyszukania, gdzie windpark==this.
-
     [Route("windmills/{guid}")]
     public IActionResult Windmill(Guid guid)
     {
@@ -26,6 +23,10 @@ public class WindmillController(
         return View(windmillServices.GetByGuid(guid));
     }
     
+    //TODO zrobić, aby taki wiatrak był dodawany / oznaczany jako temp, aby admin musiał to zatwierdzić? ewentualnie
+    // każdy moze dodawać, ale admin musi to zatwierdzić? trafiają do tabeli "roboczej"
+    // i admin ma opcję w styl zatwierdź zmiany, i w tedy to jest zapisywane do zasadniczej.
+    // 
     [HttpGet]
     public IActionResult AddWindmill()
     {
@@ -59,10 +60,27 @@ public class WindmillController(
         return View(pagedWindmills);
     }
 
+
+
+    //todo dodać walidację, tak aby tylko admin mógł usuwać.
+    // [HttpDelete]
+    public IActionResult Delete(Guid guid)
+    {
+        windmillServices.Delete(guid);
+        
+        
+        return RedirectToAction("WindmillList", new { page = 1, size = 5 });
+    }
+    
+
     public IActionResult Redirect()
     {
         return RedirectToAction("WindmillList");
     }
+    
+    
+    
+    
     
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

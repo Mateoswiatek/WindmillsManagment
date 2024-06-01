@@ -38,7 +38,8 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
                 Name = w.Name,
                 Latitude = w.Latitude,
                 Longitude = w.Longitude,
-                Height = w.Height
+                Height = w.Height,
+                Deleted = w.DateAndTimeAddedToDelete.HasValue
             })
             .ToPagedList(page, pageSize);
 
@@ -49,12 +50,27 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
     { 
         var windmill = ctx.Windmills.Find(guid);
         
-        //TODO własna obsługa błędów, aż do frontu. 
+        //TODO własna obsługa błędów, aż do frontu, albo jakiś stream ? cokolwiek XD
         if (windmill == null)
         {
             throw new Exception($"Windmill with GUID {guid} not found.");
         }
 
         return windmill;
+    }
+
+    public void Delete(Guid guid)
+    {
+        var windmill = ctx.Windmills.Find(guid);
+        if (windmill == null)
+        {
+            throw new Exception($"Windmill with GUID {guid} not found.");
+        }
+        windmill.DateAndTimeAddedToDelete = DateTime.UtcNow;
+        
+        if (ctx.SaveChanges() < 1)
+        {
+            throw new Exception($"Db error when Removing Windmill with GUID {guid}.");
+        }
     }
 }

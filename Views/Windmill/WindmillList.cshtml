@@ -25,19 +25,37 @@
         <th>Latitude</th>
         <th>Longitude</th>
         <th>Height</th>
+        <th>Deleted</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var windmillShortDto in Model)
     {
-        <tr>
-            <td><a href="@Url.Action("Windmill", "Windmill", new { guid = windmillShortDto.Guid })">@windmillShortDto.Name</a></td>
-            <td>@windmillShortDto.Latitude</td>
-            <td>@windmillShortDto.Longitude</td>
-            <td>@windmillShortDto.Height</td>
-        </tr>
+    var formId = "deleteForm_" + windmillShortDto.Guid;
+    <tr>
+        <td><a href="@Url.Action("Windmill", "Windmill", new { guid = windmillShortDto.Guid })">@windmillShortDto.Name</a></td>
+        <td>@windmillShortDto.Latitude</td>
+        <td>@windmillShortDto.Longitude</td>
+        <td>@windmillShortDto.Height</td>
+        <td>@windmillShortDto.Deleted</td>
+        <td>
+            <form id="@formId" asp-action="Delete" asp-controller="Windmill" method="post">
+                <input type="hidden" name="guid" value="@windmillShortDto.Guid" />
+                <button type="button" class="btn btn-danger" onclick="confirmDelete('@formId')">Usuń</button>
+            </form>
+        </td>
+    </tr>
     }
     </tbody>
 </table>
 
 @Html.PagedListPager(Model, page => Url.Action("WindmillList", new { page, size = Model.PageSize }))
+
+<script>
+    function confirmDelete(formId) {
+        if (confirm("Czy na pewno chcesz usunąć ten wiatrak?")) {
+            document.getElementById(formId).submit();
+        }
+    }
+</script>

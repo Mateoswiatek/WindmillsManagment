@@ -22,8 +22,26 @@
                 <dd class="col-sm-8">@Model.Height</dd>
 
                 <dt class="col-sm-4">Data ostatniej wizyty:</dt>
-                <dd class="col-sm-8">@Model.DateOfLastVisit.ToShortDateString()</dd>
+                <dd class="col-sm-8">@Model.DateOfLastVisit</dd>
+                
+                <dt class="col-sm-4">Data zmarkowania jako do usunięcia:</dt>
+                <dd class="col-sm-8">@Model.DateAndTimeAddedToDelete</dd>
+                
+                
             </dl>
+
+            <form id="deleteForm" asp-action="Delete" asp-controller="Windmill" method="post">
+                <input type="hidden" name="guid" value="@Model.Guid" />
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Usuń</button>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete() {
+        if (confirm("Czy na pewno chcesz usunąć ten wiatrak?")) {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>

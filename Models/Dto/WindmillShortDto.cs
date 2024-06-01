@@ -7,4 +7,5 @@ public class WindmillShortDto
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     public double Height { get; set; }
+    public bool Deleted { get; set; }
 }
