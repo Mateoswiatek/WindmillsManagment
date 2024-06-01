@@ -7,31 +7,24 @@ using windmillsManagement.Models.Windmill;
 
 namespace windmillsManagement.Controllers;
 
-public class WindmillController : Controller
+public class WindmillController(
+    ILogger<WindmillController> logger,
+    IWindmillServices windmillServices)
+    : Controller
 {
-    private readonly ILogger<WindmillController> _logger;
-    private readonly IWindmillServices _windmillServices;
-
     // wyświetlenie wszystkich windparków po parametrach "lokalizacji"
     // np będziemy mieli osadzoną mapę, i dostaniemy zakresy szerokości i długości.
     // user może też określić max ilość wiatraków, tak aby nie ładowało się za kazdym razem.
     
     // po prostu zrobimy wyszukiwanie z filtrem. i w tedy w windparkach, będziemy zwracać efekt takiego
     // wyszukania, gdzie windpark==this.
-    
-    public WindmillController(ILogger<WindmillController> logger, 
-        IWindmillServices windmillServices)
-    {
-        _logger = logger;
-        _windmillServices = windmillServices;
-    }
 
     [Route("windmills/{guid}")]
     public IActionResult Windmill(Guid guid)
     {
-        _logger.LogInformation("guid: {}", guid);
+        logger.LogInformation("guid: {}", guid);
 
-        var windmill = new Windmill()
+        var windmill = new Windmill
         {
             Guid = default,
             Name = "nazwa1",
@@ -68,12 +61,7 @@ public class WindmillController : Controller
         //     return View(windmill);
         // }
 
-        var guid = _windmillServices.Save(windmill);
-        
-        
-        // Logika dodawania Encji do bazy danych
-
-        TempData["Guid"] = guid;
+        TempData["Guid"] = windmillServices.Save(windmill);
         
         //To zawsze będzie metodą get, więc zawsze nam wróci
         // do pustego formularza i straci kontekst przekazanych
@@ -86,17 +74,12 @@ public class WindmillController : Controller
     [HttpGet]
     public IActionResult WindmillList(int? page, int? size)
     {
-        _logger.LogInformation("tutaj będzie sobie lista , page: {}, size: {}", page, size);
-        
-        //Tutaj np będzie zwracana również nazwa windparku / numer, i po nim bedzie przekierowanie, choc to to 
-        // już po stornie fronta można zorbić.
-        var windmills = MockWindmills();
+        logger.LogInformation("tutaj będzie sobie lista , page: {}, size: {}", page, size);
         
         var pageNumber = page ?? 1;
         var pageSize = size ?? 5;
-        var pagedWindmills = windmills.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-        // _windmillService.GetPagedWindmills(pageNumber, currentPageSize);
-        
+
+        var pagedWindmills = windmillServices.getPagedWindmillShortDtos(pageNumber, pageSize);
         
         return View(pagedWindmills);
     }
@@ -111,30 +94,5 @@ public class WindmillController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-    
-    
-    // Metoda zwracająca zmockowaną listę wiatraków
-    private static List<Windmill> MockWindmills()
-    {
-        var windmills = new List<Windmill>();
-        for (int i = 0; i < 20; i++)
-        {
-            var windmill = new Windmill()
-            {
-                Guid = Guid.NewGuid(),
-                Name = "Windmill " + i,
-                Description = "Opis przykładowego",
-                Latitude = 0,
-                Longitude = 0,
-                Height = 100.25,
-                DateOfLastVisit = DateTime.Now,
-                // WindPark = null,
-                // WindmillEquipments = null,
-                // Visits = null
-            };
-            windmills.Add(windmill);
-        }
-        return windmills;
     }
 }

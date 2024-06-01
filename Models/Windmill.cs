@@ -5,11 +5,11 @@ namespace windmillsManagement.Models.Windmill;
 public class Windmill
 {
     [Key]
-    public Guid Guid { get; set; } = Guid.NewGuid();
+    public Guid Guid { get; set; }
 
     [Required(ErrorMessage = "Podaj nazwę / oznaczenie wiatraka!")]
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     [Required]
     public double Latitude { get; set; }
     [Required]

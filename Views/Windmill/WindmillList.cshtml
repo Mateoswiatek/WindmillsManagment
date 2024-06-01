@@ -1,30 +1,53 @@
-@model IEnumerable<windmillsManagement.Models.Windmill.Windmill>
+@model X.PagedList.IPagedList<MgWindManager.Models.Dto.WindmillShortDto>
+@using X.PagedList.Mvc.Core
 
-@{
-ViewData["Title"] = "Wiatrak";
-}
 <p class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Windmill" asp-action="AddWindmill">Dodaj Wiatrak</a>
 </p>
-
-<p>tak aby nie obciążać bazki</p>
-<ul>
-    @foreach (var windmill in Model)
-    {
-        <li>@windmill.Name - @windmill.Description</li>
-    }
-</ul>
 
 <h2>Jakies tam warunki logiczne - co najwyzej, filtrowanie aby wyrać konkretne</h2>
 <p> gdy w innych miejsach na tej stornie, będe używać wszystkich elementów z listy
     W innym wypadku, powinienem stworzyć oddzielne parametry. aby nie pobierać nadmiaru danych
 </p>
-<p> wszystkie bez drugiego: (nazwa = nazwa1</p>
-@foreach (var windmill in Model)
+
+<form asp-controller="Windmill" asp-action="WindmillList" method="get">
+    <label for="size">Elementów na stronie:</label>
+    <input type="number" id="size" name="size" value="@Model.PageSize" min="1" max="100">
+    <button type="submit">Zastosuj</button>
+</form>
+
+@if (Model.HasPreviousPage)
 {
-    if (windmill.Name != "nazwa1")
-    {
-        <li>@windmill.Name - @windmill.Description</li>
-    }
-   
+    <a href="@Url.Action("WindmillList", new { page = Model.PageNumber - 1, size = Model.PageSize })">Poprzednia</a>
 }
+
+@if (Model.HasNextPage)
+{
+    <a href="@Url.Action("WindmillList", new { page = Model.PageNumber + 1, size = Model.PageSize })">Następna</a>
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        @* <th>Guid</th> *@
+        <th>Name</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Height</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var windmill in Model)
+    {
+        <tr>
+            @* <td>@windmill.Guid</td> *@
+            <td>@windmill.Name</td>
+            <td>@windmill.Latitude</td>
+            <td>@windmill.Longitude</td>
+            <td>@windmill.Height</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("WindmillList", new { page, size = Model.PageSize }))
