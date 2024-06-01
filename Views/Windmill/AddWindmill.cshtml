@@ -7,4 +7,9 @@ ViewData["Title"] = "Wiatrak";
 
 @Html.Partial("_AddWindmill", Model)
 
-<p>GUID po zapisie: @TempData["Guid"]</p>
+@* <p>GUID po zapisie: @TempData["Guid"]</p> *@
+
+@if (TempData["Guid"] != null)
+{
+    <p>Nowo dodany wiatrak został zapisany. Przejdź do nowego wiatraka: <a href="@Url.Action("Windmill", "Windmill", new { guid = TempData["Guid"] })">Zobacz wiatrak</a></p>
+}

@@ -53,10 +53,11 @@ public class WindmillController(
     //https://localhost:7214/windmills?page=2&size=20
     [Route("windmills")]
     [HttpGet]
-    public IActionResult WindmillList(string search, int page = 1, int size = 5)
+    public IActionResult WindmillList(string search, int filter = 0, int page = 1, int size = 5)
     {
+        ViewData["filter"] = filter;
         ViewData["search"] = search;
-        var pagedWindmills = windmillServices.GetPagedWindmillShortDtos(search, page, size);
+        var pagedWindmills = windmillServices.GetPagedWindmillShortDtos(search, filter, page, size);
         return View(pagedWindmills);
     }
 

@@ -21,7 +21,7 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
     }
 
     //Projekcja, aby pobierać tylko to co potrzebujemy, aby nie zwracać całych wiatrakow.
-    public IPagedList<WindmillShortDto> GetPagedWindmillShortDtos(string search, int page, int pageSize)
+    public IPagedList<WindmillShortDto> GetPagedWindmillShortDtos(string search, int filter, int page, int pageSize)
     {
         // ewentualnie jakiegoś buildera? może ładniej by to wyglądało
         
@@ -30,6 +30,19 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
         {
             query = query.Where(w => w.Name.Contains(search));
         }
+        
+        switch (filter)
+        {
+            case 1: // Aktywne
+                query = query.Where(w => !w.DateAndTimeAddedToDelete.HasValue);
+                break;
+            case 2: // Usunięte
+                query = query.Where(w => w.DateAndTimeAddedToDelete.HasValue);
+                break;
+            default: // Wszystkie (0) - nie trzeba dodatkowych filtrów
+                break;
+        }
+        
         var result = query
             .OrderBy(w => w.Name)
             .Select(w => new WindmillShortDto
