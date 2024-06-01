@@ -40,8 +40,7 @@ public class WindmillController(
         
         return View(windmill);
     }
-
-    //TODO czy tak się powinno obsługiwać formularze?
+    
     [HttpGet]
     public IActionResult AddWindmill()
     {
@@ -72,15 +71,11 @@ public class WindmillController(
     //https://localhost:7214/windmills?page=2&size=20
     [Route("windmills")]
     [HttpGet]
-    public IActionResult WindmillList(int? page, int? size)
+    public IActionResult WindmillList(string search, int page = 1, int size = 5)
     {
-        logger.LogInformation("tutaj będzie sobie lista , page: {}, size: {}", page, size);
-        
-        var pageNumber = page ?? 1;
-        var pageSize = size ?? 5;
-
-        var pagedWindmills = windmillServices.getPagedWindmillShortDtos(pageNumber, pageSize);
-        
+        // TempData["Search"] = search;
+        ViewData["search"] = search;
+        var pagedWindmills = windmillServices.getPagedWindmillShortDtos(search, page, size);
         return View(pagedWindmills);
     }
 

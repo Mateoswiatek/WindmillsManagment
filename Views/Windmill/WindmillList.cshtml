@@ -13,23 +13,14 @@
 <form asp-controller="Windmill" asp-action="WindmillList" method="get">
     <label for="size">Elementów na stronie:</label>
     <input type="number" id="size" name="size" value="@Model.PageSize" min="1" max="100">
+    <label for="search">Szukaj:</label>
+    <input type="text" id="search" name="search" value="@ViewData["search"]">
     <button type="submit">Zastosuj</button>
 </form>
-
-@if (Model.HasPreviousPage)
-{
-    <a href="@Url.Action("WindmillList", new { page = Model.PageNumber - 1, size = Model.PageSize })">Poprzednia</a>
-}
-
-@if (Model.HasNextPage)
-{
-    <a href="@Url.Action("WindmillList", new { page = Model.PageNumber + 1, size = Model.PageSize })">Następna</a>
-}
 
 <table class="table">
     <thead>
     <tr>
-        @* <th>Guid</th> *@
         <th>Name</th>
         <th>Latitude</th>
         <th>Longitude</th>
@@ -37,14 +28,13 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var windmill in Model)
+    @foreach (var windmillShortDto in Model)
     {
         <tr>
-            @* <td>@windmill.Guid</td> *@
-            <td>@windmill.Name</td>
-            <td>@windmill.Latitude</td>
-            <td>@windmill.Longitude</td>
-            <td>@windmill.Height</td>
+            <td><a href="@Url.Action("Windmill", "Windmill", new { guid = windmillShortDto.Guid })">@windmillShortDto.Name</a></td>
+            <td>@windmillShortDto.Latitude</td>
+            <td>@windmillShortDto.Longitude</td>
+            <td>@windmillShortDto.Height</td>
         </tr>
     }
     </tbody>
