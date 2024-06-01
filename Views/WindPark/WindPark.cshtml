@@ -1,0 +1,77 @@
+@model MgWindManager.Models.Dto.WindParkViewModel
+
+@{
+    ViewData["Title"] = "WindPark";
+}
+
+<div class="container">
+    <h1 class="display-4 text-center">WindPark: @Model.WindPark.Name</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Nazwa:</dt>
+                <dd class="col-sm-8">@Model.WindPark.Name</dd>
+
+                <dt class="col-sm-4">Właściciel:</dt>
+                <dd class="col-sm-8">@Model.WindPark.Owner</dd>
+
+                <dt class="col-sm-4">Dane Kontaktowe:</dt>
+                <dd class="col-sm-8">@Model.WindPark.ContactDetails</dd>
+
+                <dt class="col-sm-4">Szerokość i długość geograficzna:</dt>
+                <dd class="col-sm-8">@Model.WindPark.Latitude, @Model.WindPark.Longitude</dd>
+                
+                <dt class="col-sm-4">Data zmarkowania jako do usunięcia:</dt>
+                <dd class="col-sm-8">@Model.WindPark.DateAndTimeAddedToDelete</dd>
+
+                <h2>Wiatraki</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Wysokość</th>
+                        <th>Szerokość Geo</th>
+                        <th>Długość Geo</th>
+                        <th>Usunieto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var windmillShortDto in Model.Windmills)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("Windmill", "Windmill", new { guid = windmillShortDto.Guid })">@windmillShortDto.Name</a></td>
+                            <td>@windmillShortDto.Name</td>
+                            <td>@windmillShortDto.Height</td>
+                            <td>@windmillShortDto.Latitude</td>
+                            <td>@windmillShortDto.Longitude</td>
+                            <td>@windmillShortDto.Deleted</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                
+                
+            </dl>
+
+            <a href="@Url.Action("Edit", "WindPark", new { guid = Model.WindPark.Guid })">Edytuj</a>
+
+            <form asp-controller="WeatherApi" asp-action="Index" method="post">
+                <input type="hidden" name="latitude" value="@Model.WindPark.Latitude" />
+                <input type="hidden" name="longitude" value="@Model.WindPark.Longitude" />
+                <button type="submit" class="btn btn-primary">Sprawdź pogodę</button>
+            </form>
+            
+            <form id="deleteForm" asp-action="Delete" asp-controller="WindPark" method="post">
+                <input type="hidden" name="guid" value="@Model.WindPark.Guid" />
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Usuń</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        if (confirm("Czy na pewno chcesz usunąć ten wiatrak?")) {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>

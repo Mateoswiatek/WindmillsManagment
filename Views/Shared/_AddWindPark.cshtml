@@ -1,0 +1,13 @@
+@model MgWindManager.Models.WindPark
+
+@using (Html.BeginForm("AddWindPark", "WindPark", FormMethod.Post))
+{
+    @* @Html.ValidationSummary() *@
+    
+    <span>Nazwa</span> @Html.TextBoxFor(x => x.Name)
+    <span>Właściciel</span> @Html.TextBoxFor(x => x.Owner)
+    <span>Dane Kontaktowe</span> @Html.TextBoxFor(x => x.ContactDetails)
+    <span>Szerokość Geo(Lat)</span>@Html.TextBoxFor(x => x.Latitude)
+    <span>Długość Geo(Lon)</span> @Html.TextBoxFor(x => x.Longitude)
+    <button type="submit">Dodaj ten WindPark</button>
+}

@@ -1,0 +1,15 @@
+@model MgWindManager.Models.WindPark
+
+@{
+ViewData["Title"] = "WindPark";
+}
+<h1>Formularz dodający nowy WindPark</h1>
+
+@Html.Partial("_AddWindPark", Model)
+
+@* <p>GUID po zapisie: @TempData["Guid"]</p> *@
+
+@if (TempData["Guid"] != null)
+{
+    <p>Nowo dodany WindPark został zapisany. Przejdź do dodanego WindParku: <a href="@Url.Action("WindPark", "WindPark", new { guid = TempData["Guid"] })">Zobacz Windpark</a></p>
+}

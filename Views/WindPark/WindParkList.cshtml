@@ -1,0 +1,61 @@
+@model X.PagedList.IPagedList<MgWindManager.Models.Dto.WindParkShortDto>
+@using X.PagedList.Mvc.Core
+
+<p class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WindPark" asp-action="AddWindPark">Dodaj WindPark</a>
+</p>
+
+<h2>WindParki</h2>
+
+<form asp-controller="WindPark" asp-action="WindParkList" method="get">
+    <label for="size">Elementów na stronie:</label>
+    <input type="number" id="size" name="size" value="@Model.PageSize" min="1" max="100">
+    <label for="search">Szukaj:</label>
+    <input type="text" id="search" name="search" value="@ViewData["search"]">
+    <label for="filter">Filtruj:</label>
+    <input type="number" id="filter" name="filter" value="@ViewData["filter"]" min="0" max="2">
+    <small>0 - Wszystkie, 1 - Aktywne, 2 - Usunięte</small>
+    <button type="submit">Zastosuj</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Owner</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Deleted</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var windParkShortDto in Model)
+    {
+    var formId = "deleteForm_" + windParkShortDto.Guid;
+    <tr>
+        <td><a href="@Url.Action("WindPark", "WindPark", new { guid = windParkShortDto.Guid })">@windParkShortDto.Name</a></td>
+        <td>@windParkShortDto.Owner</td>
+        <td>@windParkShortDto.Latitude</td>
+        <td>@windParkShortDto.Longitude</td>
+        <td>@windParkShortDto.Deleted</td>
+        <td>
+            <form id="@formId" asp-action="Delete" asp-controller="WindPark" method="post">
+                <input type="hidden" name="guid" value="@windParkShortDto.Guid" />
+                <button type="button" class="btn btn-danger" onclick="confirmDelete('@formId')">Usuń</button>
+            </form>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("WindParkList", new { page, size = Model.PageSize }))
+
+<script>
+    function confirmDelete(formId) {
+        if (confirm("Czy na pewno chcesz usunąć ten wiatrak?")) {
+            document.getElementById(formId).submit();
+        }
+    }
+</script>

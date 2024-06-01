@@ -1,15 +1,23 @@
-@model MgWindManager.Models.Windmill
+@* @model MgWindManager.Models.Windmill *@
+@model MgWindManager.Models.Dto.WindmillAddRequest
 
 @using (Html.BeginForm("AddWindmill", "Windmill", FormMethod.Post))
 {
     @* @Html.ValidationSummary() *@
     
-    <span>Nazwa</span> @Html.TextBoxFor(x => x.Name)
-    <span>Opis</span>@Html.TextBoxFor(x => x.Description)
+    <span>Nazwa</span> @Html.TextBoxFor(x => x.Windmill.Name)
+    <span>Opis</span>@Html.TextBoxFor(x => x.Windmill.Description)
     <span>Lokalizacja, to będzie na jednej wysokości, obok siebie, ew do wklejania przygotować <formularz class=""></formularz></span>
-    <span>Szerokość Geo(Lat)</span>@Html.TextBoxFor(x => x.Latitude)
-    <span>Długość Geo(Lon)</span> @Html.TextBoxFor(x => x.Longitude)
-    <span>Nazwa</span>@Html.TextBoxFor(x => x.Height)
+    <span>Szerokość Geo(Lat)</span>@Html.TextBoxFor(x => x.Windmill.Latitude)
+    <span>Długość Geo(Lon)</span> @Html.TextBoxFor(x => x.Windmill.Longitude)
+    <span>Wysokosc</span>@Html.TextBoxFor(x => x.Windmill.Height)
+
+    <div class="form-group">
+        <label>WindPark</label>
+        <select asp-for="Windmill.WindParkId" class="form-control" asp-items="@(new SelectList(Model.WindParks, "Guid", "Name"))">
+            <option value="">Wybierz WindPark</option>
+        </select>
+    </div>
     @* @Html.DisplayTextFor(x => x.WindPark) Tutaj będzie lista rozwijana, z opcją wyszukiwania, odnosząca się do już istniejących windparków? ale może być to również pusta wartość *@ 
     // aaa wizyt nie dodajemy, bo dopiero będą. będzie można to zrobić na stronie wiatraka, albo na zwykłej stornie.
     // i jeśli to będzie ze strony wiatraka, to automatycznie uzupełniamy id wiatraka.

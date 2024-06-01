@@ -1,0 +1,127 @@
+@model MgWindManager.Models.WeatherResponse
+
+@{
+ViewData["Title"] = "Informacje o pogodzie";
+}
+
+<h1>@Model.name</h1>
+
+<h2>Współrzędne</h2>
+<p>Szerokość geograficzna: @Model.coord.lat</p>
+<p>Długość geograficzna: @Model.coord.lon</p>
+
+<h2>Pogoda</h2>
+@foreach (var weather in Model.weather)
+{
+<div>
+    <p>Główne: @weather.main</p>
+    <p>Opis: @weather.description</p>
+    <p>Ikona: @weather.icon</p>
+</div>
+}
+
+<h2>Główne</h2>
+<p>Temperatura: @Model.main.temp</p>
+<p>Odczuwalna temperatura: @Model.main.feels_like</p>
+<p>Minimalna temperatura: @Model.main.temp_min</p>
+<p>Maksymalna temperatura: @Model.main.temp_max</p>
+<p>Ciśnienie: @Model.main.pressure</p>
+<p>Wilgotność: @Model.main.humidity</p>
+<p>Wysokość nad poziomem morza: @Model.main.sea_level</p>
+<p>Wysokość n.p.m.: @Model.main.grnd_level</p>
+
+<h2>Widoczność</h2>
+<p>@Model.visibility</p>
+
+<h2>Wiatr</h2>
+<p>Prędkość: @Model.wind.speed</p>
+<p>Kierunek: @Model.wind.deg</p>
+<p>Poryw: @Model.wind.gust</p>
+
+<h2>Deszcz</h2>
+<p>Opady 1 godzinne: @Model.rain?._1h</p>
+<p>Opady 3 godzinne: @Model.rain?._3h</p>
+
+<h2>Śnieg</h2>
+<p>Opady 1 godzinne: @Model.snow?._1h</p>
+<p>Opady 3 godzinne: @Model.snow?._3h</p>
+
+<h2>Chmury</h2>
+<p>Całkowita pokrywa chmur: @Model.clouds.all</p>
+
+<h2>Dodatkowe informacje</h2>
+<p>Strefa czasowa: @Model.timezone</p>
+<p>ID: @Model.id</p>
+<p>Kod: @Model.cod</p>
+
+<h2>System</h2>
+<p>Typ: @Model.sys.type</p>
+<p>ID: @Model.sys.id</p>
+<p>Kraj: @Model.sys.country</p>
+<p>Wschód słońca: @Model.sys.sunrise</p>
+<p>Zachód słońca: @Model.sys.sunset</p>
+
+
+
+@* @model MgWindManager.Models.WeatherResponse *@
+@* *@
+@* @{ *@
+@*     ViewData["Title"] = "Weather Information"; *@
+@* } *@
+@* *@
+@* <h1>@Model.name</h1> *@
+@* *@
+@* <h2>Coordinates</h2> *@
+@* <p>Latitude: @Model.coord.lat</p> *@
+@* <p>Longitude: @Model.coord.lon</p> *@
+@* *@
+@* <h2>Weather</h2> *@
+@* @foreach (var weather in Model.weather) *@
+@* { *@
+@*     <div> *@
+@*         <p>Main: @weather.main</p> *@
+@*         <p>Description: @weather.description</p> *@
+@*         <p>Icon: @weather.icon</p> *@
+@*     </div> *@
+@* } *@
+@* *@
+@* <h2>Main</h2> *@
+@* <p>Temperature: @Model.main.temp</p> *@
+@* <p>Feels Like: @Model.main.feels_like</p> *@
+@* <p>Minimum Temperature: @Model.main.temp_min</p> *@
+@* <p>Maximum Temperature: @Model.main.temp_max</p> *@
+@* <p>Pressure: @Model.main.pressure</p> *@
+@* <p>Humidity: @Model.main.humidity</p> *@
+@* <p>Sea Level: @Model.main.sea_level</p> *@
+@* <p>Ground Level: @Model.main.grnd_level</p> *@
+@* *@
+@* <h2>Visibility</h2> *@
+@* <p>@Model.visibility</p> *@
+@* *@
+@* <h2>Wind</h2> *@
+@* <p>Speed: @Model.wind.speed</p> *@
+@* <p>Direction: @Model.wind.deg</p> *@
+@* <p>Gust: @Model.wind.gust</p> *@
+@* *@
+@* <h2>Rain</h2> *@
+@* <p>1-hour Volume: @Model.rain?._1h</p> *@
+@* <p>3-hour Volume: @Model.rain?._3h</p> *@
+@* *@
+@* <h2>Snow</h2> *@
+@* <p>1-hour Volume: @Model.snow?._1h</p> *@
+@* <p>3-hour Volume: @Model.snow?._3h</p> *@
+@* *@
+@* <h2>Clouds</h2> *@
+@* <p>All: @Model.clouds.all</p> *@
+@* *@
+@* <h2>Additional Information</h2> *@
+@* <p>Timezone: @Model.timezone</p> *@
+@* <p>ID: @Model.id</p> *@
+@* <p>Cod: @Model.cod</p> *@
+@* *@
+@* <h2>Sys</h2> *@
+@* <p>Type: @Model.sys.type</p> *@
+@* <p>ID: @Model.sys.id</p> *@
+@* <p>Country: @Model.sys.country</p> *@
+@* <p>Sunrise: @Model.sys.sunrise</p> *@
+@* <p>Sunset: @Model.sys.sunset</p> *@

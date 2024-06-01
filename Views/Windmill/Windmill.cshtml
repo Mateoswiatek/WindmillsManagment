@@ -26,9 +26,28 @@
                 
                 <dt class="col-sm-4">Data zmarkowania jako do usunięcia:</dt>
                 <dd class="col-sm-8">@Model.DateAndTimeAddedToDelete</dd>
+
+                <dt class="col-sm-4">WindPark:</dt>
+                @if (Model.WindParkId != null)
+                {
+                <dd class="col-sm-8">
+                    <a href="@Url.Action("WindPark", "WindPark", new { guid = @Model.WindParkId })"> WindPark, Powinna byc nazwa widnparku XD</a>
+                </dd>
+                }
+                else
+                {
+                <dd class="col-sm-8">Brak powiązanego WindParku</dd>
+                }
             </dl>
 
             <a href="@Url.Action("Edit", "Windmill", new { guid = Model.Guid })">Edytuj</a>
+
+            <form asp-controller="WeatherApi" asp-action="Index" method="post">
+                <input type="hidden" name="latitude" value="@Model.Latitude" />
+                <input type="hidden" name="longitude" value="@Model.Longitude" />
+                <button type="submit" class="btn btn-primary">Sprawdź pogodę</button>
+            </form>
+            
             <form id="deleteForm" asp-action="Delete" asp-controller="Windmill" method="post">
                 <input type="hidden" name="guid" value="@Model.Guid" />
                 <button type="button" class="btn btn-danger" onclick="confirmDelete()">Usuń</button>

@@ -1,0 +1,38 @@
+@model MgWindManager.Models.WindPark
+
+@{
+ViewData["Title"] = "Edytuj WindPark";
+}
+
+<div class="container">
+    <h1 class="display-4 text-center">Edytuj WindPark: @Model.Name</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Update" asp-controller="WindPark" method="post">
+                <input type="hidden" name="Guid" value="@Model.Guid" />
+                <div class="form-group">
+                    <label for="Name">Nazwa:</label>
+                    <input type="text" id="Name" name="Name" class="form-control" value="@Model.Name" />
+                </div>
+                <div class="form-group">
+                    <label for="Owner">Właściciel:</label>
+                    <input type="text" id="Owner" name="Owner" class="form-control" value="@Model.Owner" />
+                </div>
+                <div class="form-group">
+                    <label for="ContactDetails">Dane Kontaktowe:</label>
+                    <input type="text" id="ContactDetails" name="ContactDetails" class="form-control" value="@Model.ContactDetails" />
+                </div>
+                <div class="form-group">
+                    <label for="Latitude">Szerokość geograficzna:</label>
+                    <input type="number" id="Latitude" name="Latitude" class="form-control" value="@Model.Latitude" />
+                </div>
+                <div class="form-group">
+                    <label for="Longitude">Długość geograficzna:</label>
+                    <input type="number" id="Longitude" name="Longitude" class="form-control" value="@Model.Longitude" />
+                </div>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
+            </form>
+
+        </div>
+    </div>
+</div>

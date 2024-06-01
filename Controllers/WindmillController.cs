@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using MgWindManager.Models;
+using MgWindManager.Models.Dto;
+using MgWindManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +10,8 @@ namespace windmillsManagement.Controllers;
 [Authorize]
 public class WindmillController(
     ILogger<WindmillController> logger,
-    IWindmillServices windmillServices)
+    IWindmillService windmillService,
+    IWindParkService windParkService)
     : Controller
 {
     // wyświetlenie wszystkich windparków po parametrach "lokalizacji"
@@ -19,7 +22,7 @@ public class WindmillController(
     public IActionResult Windmill(Guid guid)
     {
         logger.LogInformation("guid: {}", guid);
-        return View(windmillServices.GetByGuid(guid));
+        return View(windmillService.GetByGuid(guid));
     }
     
     //TODO zrobić, aby taki wiatrak był dodawany / oznaczany jako temp, aby admin musiał to zatwierdzić? ewentualnie
@@ -29,12 +32,17 @@ public class WindmillController(
     [HttpGet]
     public IActionResult AddWindmill()
     {
-        
+        var windparks = windParkService.GetWindParkNamesWithIds();
         var windmill = new Windmill
         {
             Name = "Domyślna nazwa"
         };
-        return View(windmill);
+        var request = new WindmillAddRequest()
+        {
+            Windmill = windmill,
+            WindParks = windparks
+        };
+        return View(request);
     }
     
     [HttpPost]
@@ -45,7 +53,12 @@ public class WindmillController(
         //     return View(windmill);
         // }
 
-        TempData["Guid"] = windmillServices.Save(windmill);
+        if (windmill.WindParkId.HasValue)
+        {
+            windmill.WindPark = windParkService.GetByGuid(windmill.WindParkId.Value);
+        }
+
+        TempData["Guid"] = windmillService.Save(windmill);
         return RedirectToAction("AddWindmill");
     }
     
@@ -56,7 +69,7 @@ public class WindmillController(
     {
         ViewData["filter"] = filter;
         ViewData["search"] = search;
-        var pagedWindmills = windmillServices.GetPagedWindmillShortDtos(search, filter, page, size);
+        var pagedWindmills = windmillService.GetPagedWindmillShortDtos(search, filter, page, size);
         return View(pagedWindmills);
     }
 
@@ -68,7 +81,7 @@ public class WindmillController(
     {
         try
         {
-            windmillServices.Delete(guid);
+            windmillService.Delete(guid);
         }
         catch
         {
@@ -82,7 +95,7 @@ public class WindmillController(
     [HttpGet]
     public IActionResult Edit(Guid guid)
     {
-        var windmill = windmillServices.GetByGuid(guid);
+        var windmill = windmillService.GetByGuid(guid);
         // dostajemy widok, w którym możemy modyfikować nasz wiatrak.
         return View(windmill);
     }
@@ -96,7 +109,7 @@ public class WindmillController(
     {
         try
         {
-            windmillServices.Update(windmill);
+            windmillService.Update(windmill);
             return RedirectToAction("Windmill", new {guid = windmill.Guid} );
         }
         catch

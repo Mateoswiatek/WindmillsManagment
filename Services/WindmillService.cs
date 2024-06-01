@@ -4,7 +4,7 @@ using X.PagedList;
 
 namespace MgWindManager.Services;
 
-public class WindmillServices(ILogger<WindmillServices> logger, MgWindCtx ctx) : IWindmillServices
+public class WindmillService(ILogger<WindmillService> logger, MgWindCtx ctx) : IWindmillService
 {
     public Guid Save(Windmill windmill)
     {
@@ -14,10 +14,18 @@ public class WindmillServices(ILogger<WindmillServices> logger, MgWindCtx ctx) :
         return windmill.Guid;
     }
 
-    [Obsolete]
-    IPagedList<Windmill> IWindmillServices.GetPagedWindmills(int page, int pageSize)
+    public List<WindmillShortDto> GetPagedWindmillsByWindParkGuid(Guid windParkGuid)
     {
-        return ctx.Windmills.ToPagedList(page, pageSize);
+        return ctx.Windmills.Where(x => x.WindParkId.Equals(windParkGuid))
+            .Select(w => new WindmillShortDto
+            {
+                Guid = w.Guid,
+                Name = w.Name,
+                Latitude = w.Latitude,
+                Longitude = w.Longitude,
+                Height = w.Height,
+                Deleted = w.DateAndTimeAddedToDelete.HasValue
+            }).ToList();
     }
 
     //Projekcja, aby pobierać tylko to co potrzebujemy, aby nie zwracać całych wiatrakow.

@@ -1,12 +1,17 @@
 using MgWindManager;
 using MgWindManager.Models;
 using MgWindManager.Services;
+using MgWindManager.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IWindmillServices, WindmillServices>();
+builder.Services.AddScoped<IWindmillService, WindmillService>();
+builder.Services.AddScoped<IWindParkService, WindParkService>();
+
+builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
+
 builder.Services.AddLogging(b =>
 {
     b.AddConsole();
