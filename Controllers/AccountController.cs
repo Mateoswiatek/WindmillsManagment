@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using MgWindManager.Models;
 using Microsoft.AspNetCore.Identity;
 
+//todo można by dodać opcje modyfikacji usera, np zmiana hasła, emaila, potwierdzenie maila, zmiana imienia, naziwska itp itd.
+
+
 namespace MgWindManager.Controllers
 {
     public class AccountController(UserManager<UserModel> userManager,

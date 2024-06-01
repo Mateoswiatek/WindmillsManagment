@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using MgWindManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace windmillsManagement.Controllers;
 
+[Authorize]
 public class WindmillController(
     ILogger<WindmillController> logger,
     IWindmillServices windmillServices)
