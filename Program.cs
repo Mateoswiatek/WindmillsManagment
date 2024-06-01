@@ -5,6 +5,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IWindmillServices, WindmillServices>();
+builder.Services.AddLogging(b =>
+{
+    b.AddConsole();
+});
 
 builder.Services.AddDbContext<MgWindCtx>(options =>
 {

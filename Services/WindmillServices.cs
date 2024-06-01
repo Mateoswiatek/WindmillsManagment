@@ -4,7 +4,7 @@ using X.PagedList;
 
 namespace MgWindManager.Services;
 
-public class WindmillServices(MgWindCtx ctx) : IWindmillServices
+public class WindmillServices(ILogger<WindmillServices> logger, MgWindCtx ctx) : IWindmillServices
 {
     public Guid Save(Windmill windmill)
     {
@@ -85,5 +85,25 @@ public class WindmillServices(MgWindCtx ctx) : IWindmillServices
         {
             throw new Exception($"Db error when Removing Windmill with GUID {guid}.");
         }
+    }
+
+    public Windmill Update(Windmill newWindmill)
+    {
+        var existingWindmill = ctx.Windmills.Find(newWindmill.Guid);
+        if (existingWindmill == null)
+        {
+            throw new Exception($"Windmill not found!");
+        }
+
+        existingWindmill.Name = newWindmill.Name;
+        existingWindmill.Description = newWindmill.Description;
+        existingWindmill.Latitude = newWindmill.Latitude;
+        existingWindmill.Longitude = newWindmill.Longitude;
+        existingWindmill.Height = newWindmill.Height;
+        //Innych danych nie mozna zmieniać / zmieniają się automatycznie
+
+        ctx.SaveChanges();
+        
+        return existingWindmill;
     }
 }

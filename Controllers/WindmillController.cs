@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using MgWindManager.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using windmillsManagement.Models;
 using windmillsManagement.Models.Windmill;
 
@@ -67,22 +66,44 @@ public class WindmillController(
     // [HttpDelete]
     public IActionResult Delete(Guid guid)
     {
-        windmillServices.Delete(guid);
-        
+        try
+        {
+            windmillServices.Delete(guid);
+        }
+        catch
+        {
+            return NotFound();
+        }
         
         return RedirectToAction("WindmillList", new { page = 1, size = 5 });
     }
-    
 
-    public IActionResult Redirect()
+    //Tutaj przychodzimy,
+    [HttpGet]
+    public IActionResult Edit(Guid guid)
     {
-        return RedirectToAction("WindmillList");
+        var windmill = windmillServices.GetByGuid(guid);
+        // dostajemy widok, w którym możemy modyfikować nasz wiatrak.
+        return View(windmill);
     }
-    
-    
-    
-    
-    
+
+    //Nastepnie, z tamtej storny, klikając "zapisz" jesteśmy przekierowani tutaj,
+    // jako Post, bo przy Pucie, trzeba by rozbijać obiekt na parametry,
+    // bo tylko Post może mieć body. dla uproszczenia tak to jest zrobione.
+    //i tu następuje faktyczny zapis nowo zmodyfikowanych danych do bazy.
+    [HttpPost]
+    public IActionResult Update(Windmill windmill)
+    {
+        try
+        {
+            windmillServices.Update(windmill);
+            return RedirectToAction("Windmill", new {guid = windmill.Guid} );
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

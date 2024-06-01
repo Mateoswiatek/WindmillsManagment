@@ -26,9 +26,9 @@
                 
                 <dt class="col-sm-4">Data zmarkowania jako do usunięcia:</dt>
                 <dd class="col-sm-8">@Model.DateAndTimeAddedToDelete</dd>
-                
-                
             </dl>
+
+            <a href="@Url.Action("Edit", "Windmill", new { guid = Model.Guid })">Edytuj</a>
 
             <form id="deleteForm" asp-action="Delete" asp-controller="Windmill" method="post">
                 <input type="hidden" name="guid" value="@Model.Guid" />
@@ -44,4 +44,5 @@
             document.getElementById("deleteForm").submit();
         }
     }
+
 </script>
