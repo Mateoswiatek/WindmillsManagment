@@ -1,0 +1,10 @@
+@model windmillsManagement.Models.Windmill.Windmill
+
+@{
+ViewData["Title"] = "Wiatrak";
+}
+<h1>Formularz dodający nowy wiatrak</h1>
+
+@Html.Partial("_AddWindmill", Model)
+
+<p>GUID po zapisie: @TempData["Guid"]</p>

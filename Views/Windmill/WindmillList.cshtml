@@ -1,0 +1,30 @@
+@model IEnumerable<windmillsManagement.Models.Windmill.Windmill>
+
+@{
+ViewData["Title"] = "Wiatrak";
+}
+<p class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Windmill" asp-action="AddWindmill">Dodaj Wiatrak</a>
+</p>
+
+<p>tak aby nie obciążać bazki</p>
+<ul>
+    @foreach (var windmill in Model)
+    {
+        <li>@windmill.Name - @windmill.Description</li>
+    }
+</ul>
+
+<h2>Jakies tam warunki logiczne - co najwyzej, filtrowanie aby wyrać konkretne</h2>
+<p> gdy w innych miejsach na tej stornie, będe używać wszystkich elementów z listy
+    W innym wypadku, powinienem stworzyć oddzielne parametry. aby nie pobierać nadmiaru danych
+</p>
+<p> wszystkie bez drugiego: (nazwa = nazwa1</p>
+@foreach (var windmill in Model)
+{
+    if (windmill.Name != "nazwa1")
+    {
+        <li>@windmill.Name - @windmill.Description</li>
+    }
+   
+}

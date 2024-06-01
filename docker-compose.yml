@@ -1,0 +1,23 @@
+﻿version: '3.8'
+
+services:
+  mgwind-postgres:
+    image: postgres:13
+    container_name: mgwind_postgres_container
+    environment:
+      POSTGRES_USER: mgwind
+      POSTGRES_PASSWORD: Mgwind123@!
+      POSTGRES_DB: mgwind
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data1
+
+#  windmillsmanagement:
+#    image: windmillsmanagement
+#    build:
+#      context: .
+#      dockerfile: windmillsManagement/Dockerfile
+
+volumes:
+  postgres_data:
