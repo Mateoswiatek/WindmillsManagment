@@ -44,6 +44,10 @@ Z rzeczy na plus / dodatkowych
 Demo prezentacyjne:
 [link](https://youtu.be/cTLI487_VlI)
 
+Zewnętrzne API z: [openweathermap](https://openweathermap.org/current#multi)
+
+![obraz](https://github.com/Mateoswiatek/WindmillsManagment/assets/115046087/4e3d673e-f359-4307-abce-fb92798c2c27)
+
 
 Działa sobie ładnie poprawnie wszystko:
 
