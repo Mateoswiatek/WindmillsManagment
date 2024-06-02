@@ -3,18 +3,28 @@ Demo prezentacyjne:
 [link](https://youtu.be/cTLI487_VlI)
 
 
+Zewnętrzne API z: [openweathermap](https://openweathermap.org/current#multi)
+
+# Przemyślenia / TODO / Rozwój
 Zamienić na CQRSa, ale dużo roboty przy IOC będzie i wstrzykiwaniu zależności.
 W Javie byłoby raz dwa. W tedy, rzeczy do faktycznej modyfikacji encji miałby admin,
+
+
 Pracownicy tylko by zgłaszali poprawki / modyfikacje, i one musiałby być zatwierdzone przez któregoś z adminów.
+
+
 Niby spoko się robi, ale jednak Java jest przyjemniejsza, bardziej widać co sie dzieje, bardziej zrozumiała, Nie ma babrania sie we frontend i backend.
 Bardziej przejrzyste.
+
+
 Niemniej, C# jest spoko dla małych aplikacji / gdy trzeba zrobić i backend i frontend, jakis szybki crud bez skomplikowanych operacji i relaci.
 Boo Relacje i zarządzanie bazą danych równiez jest problematyczne, każdą metode trzeba robić, definiować, zabezpieczać, nie ma jednego typowego flow.
 
+
 Dodać do windparku oopcję, aby dodać wiatrak, iw tedy już automatycznie windpark ustawi się na tego konkretnego?
 
-
-Wymagane rzeczy:
+# Wymagania
+Spełnione wymagania:
 - Podstawowe operacje CRUDowe
 - Podejście MVC,
 - Stronnicowanie,
@@ -29,7 +39,7 @@ Wymagane rzeczy:
 - Jest Logowanie  = rejestracja, logowanie, wylogowywanie, zabezpieczenie dostępu, 
 
 
-Z rzeczy na plus / dodatkowych
+Dodatkowe rzeczy / funkcjonalności / dodatki
 - Użycie ORMa (Co nie zawsze się zdarza, niektórzy niskopoziomowo zarządzają bazką, SQLki lecą)
 - O ile byłot możliwe, wykonywanie Requestów zgodnie ze sztuką (a przynajmniej tak mi się wydaje)
 - Stosunkowo przemyślana struktura programu
@@ -46,11 +56,7 @@ Z rzeczy na plus / dodatkowych
 - Połączenie z zewnętrznym API (Pogoda)
 - Konwertowanie JSONów odpowiedzi na Obiekty w Programie.
 
-Demo prezentacyjne:
-[link](https://youtu.be/cTLI487_VlI)
-
-Zewnętrzne API z: [openweathermap](https://openweathermap.org/current#multi)
-
+# SS z aplikacji
 ![obraz](https://github.com/Mateoswiatek/WindmillsManagment/assets/115046087/4e3d673e-f359-4307-abce-fb92798c2c27)
 
 
