@@ -1,3 +1,8 @@
+# DEMO
+Demo prezentacyjne:
+[link](https://youtu.be/cTLI487_VlI)
+
+
 Zamienić na CQRSa, ale dużo roboty przy IOC będzie i wstrzykiwaniu zależności.
 W Javie byłoby raz dwa. W tedy, rzeczy do faktycznej modyfikacji encji miałby admin,
 Pracownicy tylko by zgłaszali poprawki / modyfikacje, i one musiałby być zatwierdzone przez któregoś z adminów.
