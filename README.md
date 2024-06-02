@@ -25,7 +25,10 @@ Wymagane rzeczy:
 
 
 Z rzeczy na plus / dodatkowych
-- Użycie ORMa (Co nie zawsze się zdarza)
+- Użycie ORMa (Co nie zawsze się zdarza, niektórzy niskopoziomowo zarządzają bazką, SQLki lecą)
+- O ile byłot możliwe, wykonywanie Requestów zgodnie ze sztuką (a przynajmniej tak mi się wydaje)
+- Stosunkowo przemyślana struktura programu
+- Użycie AspNetCore.Identity do ogarnięcia userów (co również nie zawsze się zdarza, inni przykładowo z palca hashowali md5-tką)
 - Wartości domyślne w Formularzach
 - Dodanie Service,
 - Rozbudowana nawigacja między widokami, wiele różnych opcji,
