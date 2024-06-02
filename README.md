@@ -6,6 +6,7 @@ Demo prezentacyjne:
 Zewnętrzne API z: [openweathermap](https://openweathermap.org/current#multi)
 
 # Przemyślenia / TODO / Rozwój
+[old repo](https://github.com/Mateoswiatek/WindmillsManagmentOld)
 Zamienić na CQRSa, ale dużo roboty przy IOC będzie i wstrzykiwaniu zależności.
 W Javie byłoby raz dwa. W tedy, rzeczy do faktycznej modyfikacji encji miałby admin,
 
