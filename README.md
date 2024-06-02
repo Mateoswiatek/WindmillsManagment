@@ -103,3 +103,7 @@ Stronicowanie
 
 I wiele wiele innych, wszystko jest na demo.
 
+Bazka
+![obraz](https://github.com/Mateoswiatek/WindmillsManagment/assets/115046087/e48c64a3-ec9f-4b17-be5d-4f1c73663253)
+
+![obraz](https://github.com/Mateoswiatek/WindmillsManagment/assets/115046087/dd0c730a-39df-4b19-824e-092ce5ad16aa)
