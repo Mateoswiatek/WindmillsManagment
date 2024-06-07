@@ -50,6 +50,7 @@ public class WindParkController(
         var windPark = new WindPark
         {
             Name = "Domyślna nazwa Windparku"
+            //mozna by dodac do windparku metodke aby dodawac wiatraki do windparku.
         };
         return View(windPark);
     }

@@ -33,6 +33,8 @@ public class WindmillService(ILogger<WindmillService> logger, MgWindCtx ctx) : I
     {
         // ewentualnie jakiegoś buildera? może ładniej by to wyglądało
         
+        //Dodać coś na zasadzie Specification, jak w javie.
+        
         var query = ctx.Windmills.AsQueryable();
         if (!string.IsNullOrWhiteSpace(search))
         {

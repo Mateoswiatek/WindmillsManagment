@@ -32,9 +32,6 @@ namespace MgWindManager.Controllers
             };
             
             await userManager.CreateAsync(newUser, registerData.Password);
-            
-            
-
 
             return RedirectToAction("Index", "Home");
         }
