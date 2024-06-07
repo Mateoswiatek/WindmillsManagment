@@ -7,7 +7,7 @@ namespace MgWindManager.Services;
 
 public class WeatherApiService : IWeatherApiService
 {
-    private const string API_KEY = "5af0b02c6d323fdacc4c6daac0468a11";
+    private const string API_KEY = "";
     
     public WeatherResponse GetData(string lat, string lon)
     {
